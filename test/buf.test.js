@@ -33,7 +33,7 @@ describe('Buf', function() {
         }
         done();
     });
-    it('String', function(done) {
+    it('Alloc String', function(done) {
         var buf = new Buf();
         buf.write("asf");
         buf.write("1122");
@@ -42,6 +42,25 @@ describe('Buf', function() {
         ret = buf.read(3);
         ret.toString().should.eql("f11");
         buf.length().should.eql(2);
+        done();
+    });
+    it('Read Until', function(done) {
+        var buf = new Buf();
+        buf.write("asf");
+        buf.write("11\n22");
+        buf.readUntil("\n").toString().should.eql("asf11");
+        buf.writeInt8(0);
+        buf.readUntil(0).toString().should.eql("22");
+        buf.length().should.eql(0);
+        done();
+    });
+    it('Read/Write String', function(done) {
+        var buf = new Buf();
+        buf.writeString("hello");
+        buf.writeString("world");
+        buf.length().should.eql(12);
+        buf.readString().toString().should.eql("hello");
+        buf.readString().toString().should.eql("world");
         done();
     });
 });

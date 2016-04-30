@@ -6,13 +6,21 @@ Buf.ENDIAN_TYPE = types.ENDIAN_TYPE;
 Buf.NO_ENDIAN_TYPE = types.NO_ENDIAN_TYPE;
 module.exports = Buf;
 
-function Buf(endian) {
+function Buf() {
     this._cache = [];
     this._readBuffer = new StreamBuffer(); //StreamBuffer
     this._writeBuffer = new StreamBuffer(); //StreamBuffer
 }
 
+Buf.setEndian = function(endian) {
+    types.ENDIAN = endian;
+}
+
 Buf.prototype.write = function(buf) {
+    if (this._writeBuffer.length()) {
+        this._cache.push(this._writeBuffer.buffer());
+        this._writeBuffer = new StreamBuffer();
+    }
     if (buf instanceof Buffer) {
         this._cache.push(buf);
     } else if (typeof buf === "string") {
@@ -20,6 +28,7 @@ Buf.prototype.write = function(buf) {
     } else {
         throw new Error("Only Can Write Buffer/String");
     }
+    return this;
 }
 
 Buf.prototype.read = function(n) {

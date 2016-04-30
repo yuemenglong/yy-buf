@@ -17,6 +17,10 @@ module.exports = function(proto) {
         proto[fnName] = createReadFn(fnName, length);
     }
     proto.readUntil = readUntil;
+    proto.readLine = readLine;
+    proto.writeLine = writeLine;
+    proto.readString = readString;
+    proto.writeString = writeString;
 }
 
 function createReadFn(fnName, length) {
@@ -65,4 +69,20 @@ function readUntil(sep) {
     var ret = this._readBuffer.read(pos);
     this._readBuffer.skip(sep.length);
     return ret;
+}
+
+function readLine() {
+    return this.readUntil("\n");
+}
+
+function writeLine(str) {
+    return this.write(str).write("\n");
+}
+
+function readString() {
+    return this.readUntil(0);
+}
+
+function writeString(str) {
+    return this.write(str).writeInt8(0);
 }

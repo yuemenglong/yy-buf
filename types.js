@@ -15,4 +15,5 @@ var NO_ENDIAN_TYPE = {
 module.exports = {
     ENDIAN_TYPE: ENDIAN_TYPE,
     NO_ENDIAN_TYPE: NO_ENDIAN_TYPE,
+    ENDIAN: "BE",
 }

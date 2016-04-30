@@ -1,9 +1,13 @@
 var streamBufferProtoFn = require("./stream-buffer-proto-fn");
+var types = require("./types");
 
 module.exports = StreamBuffer;
 
+StreamBuffer.setEndian = function(endian) {
+    types.ENDIAN = endian;
+}
+
 function StreamBuffer(arg) {
-    this._endian = "BE";
     if (arg instanceof Buffer) {
         var buffer = arg;
         this._capacity = buffer.length;
@@ -23,11 +27,6 @@ function StreamBuffer(arg) {
         this._writePos = 0;
         this._buffer = new Buffer(this._capacity);
     }
-}
-
-StreamBuffer.prototype.setEndian = function(endian) {
-    this._endian = endian;
-    return this;
 }
 
 StreamBuffer.prototype.length = function() {

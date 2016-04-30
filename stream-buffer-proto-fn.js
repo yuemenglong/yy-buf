@@ -55,7 +55,7 @@ function createReadFn(fnName, length) {
 
 function createShortFn(fnName) {
     return function() {
-        var realFnName = `${fnName}${this._endian}`;
+        var realFnName = `${fnName}${types.ENDIAN}`;
         return this[realFnName].apply(this, arguments);
     }
 }

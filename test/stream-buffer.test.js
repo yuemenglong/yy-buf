@@ -64,8 +64,9 @@ describe('StreamBuffer', function() {
         done();
     });
     it('Short Fn LE', function(done) {
+        StreamBuffer.setEndian("LE");
         var buffer = new StreamBuffer();
-        buffer.setEndian("LE");
+        
         buffer.writeInt8(100);
         var ret = buffer.readInt8();
         ret.should.eql(100);
@@ -84,6 +85,8 @@ describe('StreamBuffer', function() {
         buffer.readUInt8().should.eql(0x12);
 
         buffer.length().should.eql(0);
+
+        StreamBuffer.setEndian("BE");
         done();
     });
 });
