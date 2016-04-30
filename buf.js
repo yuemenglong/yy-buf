@@ -34,30 +34,6 @@ Buf.prototype.read = function(n) {
     return;
 }
 
-Buf.prototype.readUntil = function(sep) {
-    if (typeof sep === "string") {
-        sep = new Buffer(sep);
-    } else if (typeof sep === "number") {
-        var b = new Buffer(1);
-        b.writeInt8(sep);
-        sep = b;
-    } else if (Array.isArray(sep)) {
-        var b = new Buffer(sep.length);
-        for (var i of sep) {
-            b.writeInt8(i);
-        }
-        sep = b;
-    }
-    var buffer = this.buffer();
-    var pos = buffer.indexOf(sep);
-    if (pos < 0) {
-        return;
-    }
-    var ret = this._readBuffer.read(pos);
-    this._readBuffer.skip(sep.length);
-    return ret;
-}
-
 Buf.prototype.purge = function() {
     if (!this._cache.length && !this._writeBuffer.length()) {
         return;

@@ -16,6 +16,7 @@ module.exports = function(proto) {
         var fnName = `read${type}`;
         proto[fnName] = createReadFn(fnName, length);
     }
+    proto.readUntil = readUntil;
 }
 
 function createReadFn(fnName, length) {
@@ -39,4 +40,29 @@ function createWriteFn(fnName, length) {
         this._writeBuffer[fnName](value);
         return this;
     }
+}
+
+
+function readUntil(sep) {
+    if (typeof sep === "string") {
+        sep = new Buffer(sep);
+    } else if (typeof sep === "number") {
+        var b = new Buffer(1);
+        b.writeInt8(sep);
+        sep = b;
+    } else if (Array.isArray(sep)) {
+        var b = new Buffer(sep.length);
+        for (var i of sep) {
+            b.writeInt8(i);
+        }
+        sep = b;
+    }
+    var buffer = this.buffer();
+    var pos = buffer.indexOf(sep);
+    if (pos < 0) {
+        return;
+    }
+    var ret = this._readBuffer.read(pos);
+    this._readBuffer.skip(sep.length);
+    return ret;
 }
