@@ -1,0 +1,18 @@
+{
+  "name": "yy-buf",
+  "version": "1.0.0",
+  "description": "buffer autoscale",
+  "main": "buf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "buffer",
+    "autoscale"
+  ],
+  "author": "yuemenglong@126.com",
+  "license": "ISC",
+  "devDependencies": {
+    "should": "^8.3.1"
+  }
+}
