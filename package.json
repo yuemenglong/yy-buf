@@ -4,7 +4,7 @@
   "description": "buffer autoscale",
   "main": "buf.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "keywords": [
     "buffer",
@@ -14,5 +14,17 @@
   "license": "ISC",
   "devDependencies": {
     "should": "^8.3.1"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuemenglong/yy-buf.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuemenglong/yy-buf/issues"
+  },
+  "homepage": "https://github.com/yuemenglong/yy-buf#readme"
 }
